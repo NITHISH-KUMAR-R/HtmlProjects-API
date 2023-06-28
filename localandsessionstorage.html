@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Amazon Shopping</h1>
+    <label for="productName">Product Name:</label> <br />
+    <input
+      type="text"
+      placeholder="Enter your Product Name"
+      name="product"
+      id="productName"
+    />
+    <br />
+    <label for="productPrice">Product Price:</label> <br />
+    <input
+      type="text"
+      placeholder="Total Price"
+      name="price"
+      id="productPrice"
+    />
+    <br />
+    <br />
+    <button onclick="addProductToCart()">Add to Cart</button>
+    <br />
+
+    <div id="output"></div>
+  </body>
+  <script>
+    function showCart() {
+      let cart = sessionStorage.getItem("cart");
+      cart = JSON.parse(cart);
+      //console.log(cart);
+      let output = document.getElementById("output");
+      if (cart == null || cart.length == 0) {
+        output.innerHTML = "<h1>cart Is Empty</h1>";
+      } else {
+        let table = "<table border='1'>";
+        table += "<tr><th>Product Name</th><th>Product Price</th></tr>";
+        for (let i = 0; i < cart.length; i++) {
+          table +=
+            "<tr>" +
+            "<td>" +
+            cart[i].name +
+            "</td>" +
+            "<td>" +
+            cart[i].price +
+            "</td>" +
+            "</tr>";
+        }
+        table += "</table>";
+        output.innerHTML = table;
+      }
+    }
+    function addProductToCart() {
+      //alert("Product added Successfully");
+
+      let cart = sessionStorage.getItem("cart");
+      if (cart == null) {
+        cart = [];
+      } else {
+        cart = JSON.parse(cart);
+      }
+      let productName = document.getElementById("productName").value;
+      let productPrice = document.getElementById("productPrice").value;
+
+      var cartDetails = {
+        name: productName,
+        price: productPrice,
+      };
+      cart.push(cartDetails);
+      console.log(sessionStorage.setItem("cart", JSON.stringify(cart)));
+
+      showCart();
+    }
+    showCart();
+  </script>
+</html>

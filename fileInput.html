@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="fileInput">Upload File</label> <br />
+    <input type="file" id="fileInput" multiple onchange="getDetails()" />
+    <div id="output"></div>
+  </body>
+  <script>
+    function getDetails() {
+      // Retrieve the file input element by its ID
+      var fileInput = document.getElementById("fileInput");
+
+      // Access the selected files using the files property of the file input element
+      var fileData = fileInput.files;
+
+      // Get the reference to the output <div> element
+      var data = document.getElementById("output");
+
+      // Clear the existing content of the output <div>
+      //data.innerHTML = "";
+
+      // Loop through each selected file
+      for (var i = 0; i < fileData.length; i++) {
+        var mulFiles = fileData[i];
+
+        // Append the file details to the output <div>
+        data.innerHTML +=
+          "File Name:" +
+          mulFiles.name +
+          "<br>" +
+          "File size:" +
+          mulFiles.size +
+          "<br>" +
+          "File type:" +
+          mulFiles.type +
+          "<br>" +
+          "<br>";
+      }
+    }
+  </script>
+</html>
