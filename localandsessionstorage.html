@@ -30,16 +30,21 @@
     <div id="output"></div>
   </body>
   <script>
+    // Function to display the cart
     function showCart() {
+      // Retrieve cart from session storage
       let cart = sessionStorage.getItem("cart");
       cart = JSON.parse(cart);
-      //console.log(cart);
       let output = document.getElementById("output");
+
+      // Check if the cart is empty
       if (cart == null || cart.length == 0) {
-        output.innerHTML = "<h1>cart Is Empty</h1>";
+        output.innerHTML = "<h1>Cart Is Empty</h1>";
       } else {
         let table = "<table border='1'>";
         table += "<tr><th>Product Name</th><th>Product Price</th></tr>";
+
+        // Iterate over each item in the cart and add it to the table
         for (let i = 0; i < cart.length; i++) {
           table +=
             "<tr>" +
@@ -55,15 +60,18 @@
         output.innerHTML = table;
       }
     }
-    function addProductToCart() {
-      //alert("Product added Successfully");
 
+    // Function to add a product to the cart
+    function addProductToCart() {
       let cart = sessionStorage.getItem("cart");
+
+      // Check if the cart is empty
       if (cart == null) {
         cart = [];
       } else {
         cart = JSON.parse(cart);
       }
+
       let productName = document.getElementById("productName").value;
       let productPrice = document.getElementById("productPrice").value;
 
@@ -71,11 +79,18 @@
         name: productName,
         price: productPrice,
       };
-      cart.push(cartDetails);
-      console.log(sessionStorage.setItem("cart", JSON.stringify(cart)));
 
+      // Add the product details to the cart
+      cart.push(cartDetails);
+
+      // Store the updated cart in session storage
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+
+      // Display the updated cart
       showCart();
     }
+
+    // Show the cart when the page loads
     showCart();
   </script>
 </html>
